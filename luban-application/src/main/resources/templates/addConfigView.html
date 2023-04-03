@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>新增配置信息</title>
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <script src="../layui/layui.js"></script>
+</head>
+<body>
+        <form class="layui-form" action="">
+            <div class="layui-form-item">
+                <label class="layui-form-label">应用code</label>
+                <div class="layui-input-block">
+                    <input type="text" name="appCode" required  lay-verify="required" placeholder="请输入应用Code" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">配置名称</label>
+                <div class="layui-input-block">
+                    <input type="text" name="configName"  placeholder="请输入配置名称" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">配置类型</label>
+                <div class="layui-input-block">
+                    <select name="configSelect" lay-verify="required" id="configSelect">
+                        <option value=""></option>
+                        <option value="JAVA_METHOD" >java方法配置</option>
+                        <option value="HTTP_METHOD">http方法配置</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">状态</label>
+                <div class="layui-input-block">
+                    <select name="status" lay-verify="required">
+                        <option value=""></option>
+                        <option value="0">正常</option>
+                        <option value="1">异常</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="layui-container" id="javaMethodConfig" style="display: none;height: 240px;">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">全类名</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="className"  placeholder="请输入全类路径" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">方法名称</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="methodName"  placeholder="请输入方法名称" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">参数数组</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="argsTypes"  placeholder="请输入参数数组" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">方法体</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="methodBody"  placeholder="请输入方法体" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="layui-container" id="httpMethodConfig" style="display: none;height: 240px;">
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">主机地址</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="hostAddress"  placeholder="请输入主机地址" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">端口号</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="port"  placeholder="请输入端口号" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">请求路径</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="uri"  placeholder="请输入请求路径" autocomplete="off" class="layui-input">
+                    </div>
+                </div>s
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">请求类型</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="requestType"  placeholder="请输入类型" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">contentType</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="contentType"  placeholder="请输入contentType" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">响应体</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="responseContent" placeholder="请输入responseContent" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+</body>
+</html>
+
+<script >
+    var $ = layui.$;
+    var form = layui.form;
+
+    form.on("select", function(data){
+        if (data.elem.id === 'configSelect') {
+            if(data.value === 'JAVA_METHOD') {
+                $('#javaMethodConfig').show();
+                $('#httpMethodConfig').hide();
+                // let layVerifys = $('#httpMethodConfig').children('input[lay-verify]');
+            } else {
+                $('#javaMethodConfig').hide();
+                $('#httpMethodConfig').show();
+            }
+        }
+    });
+
+    function resetVerify(dom) {
+        let inputs = dom.getElementsByTagName('input');
+        for (i=0;i<inputs.length;i++) {
+            inputs[i].required=false;
+        }
+    }
+
+
+    form.on('submit(formDemo)', function(data){
+        debugger;
+        let requestObj = data.field;
+        var addType = requestObj.constant === 'JAVA_METHOD' ? 0 : 1;
+
+        // 如果是java方法配置
+        if (addType === 0) {
+            let argsTypesStr = requestObj.argsTypes;
+            let argsTypes = Array.from(argsTypesStr.split(","));
+            requestObj.argsTypes = argsTypes;
+        }
+
+        let request = JSON.stringify(requestObj);
+        send2AddConfig(request,addType);
+        return false;
+    });
+
+    function send2AddConfig(request,type) {
+        debugger;
+        var url = type === 0 ? '/luBanConfig/addJavaMethodVo' : '/luBanConfig/addHttpMethodVo';
+        $.ajax({
+            type: "post",
+            data: request,
+            dataType: "json",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            url: url,
+            success: function (data) {
+                if(data.code === 0) {
+                    layer.msg("新增成功");
+                    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                    // parent.location.reload();//刷新父页面，注意一定要在关闭当前iframe层之前执行刷新
+                    parent.configInfo();
+                    parent.layer.close(index); //再执行关闭
+                }
+            }
+        });
+    }
+
+    function parseContent(content) {
+       let replaceAll = content.replaceAll('\n','');
+        console.info(replaceAll);
+       return eval("(" + replaceAll + ")");
+    }
+
+</script>

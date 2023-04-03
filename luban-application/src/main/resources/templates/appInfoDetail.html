@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>app心跳信息</title>
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <script src="../layui/layui.js"></script>
+</head>
+<body>
+
+<form class="layui-form" action=""  lay-filter="detailForm">
+    <div class="layui-form-item">
+        <label class="layui-form-label">appCode</label>
+        <div class="layui-input-block">
+            <input type="text" name="appCode" required  lay-verify="required" autocomplete="off" class="layui-input" id="appCode">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">vm名称</label>
+        <div class="layui-input-inline">
+            <input type="text" name="vmName" required lay-verify="required"  autocomplete="off" class="layui-input" id="vmName">
+        </div>
+    </div>
+
+
+    <div class="layui-form-item layui-form-text" id="javaMethodConfig" style="height: 240px;">
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">实例信息</label>
+            <div class="layui-input-block">
+                        <textarea name="heartInfos" class="layui-textarea" style="height: 200px;align-content: flex-start" id="heartInfos">
+                        </textarea>
+            </div>
+        </div>
+    </div>
+</form>
+</body>
+</html>
